@@ -1,35 +1,70 @@
 #include "raylib.h"
 
-static const unsigned int screen_width = 800;
-static const unsigned int screen_height = 600;
+#define PLAYER_MAX_LIFE 5
+#define LINES_OF_BRICKS 5
+#define BRICKS_PER_LINE 20
 
-static void init_game(void);
-static void unload_game(void);
-static void update_draw_frame(void);
-static void update_game(void);
-static void draw_game(void);
+typedef struct
+{
+    Vector2 position;
+    Vector2 size;
+    int life;
+} Player;
+
+typedef struct
+{
+    Vector2 position;
+    Vector2 speed;
+    int radius;
+    bool active;
+} Ball;
+
+typedef struct
+{
+    Vector2 position;
+    bool active;
+} Brick;
+
+typedef const unsigned int Resolution;
+
+static Resolution screen_width = 800;
+static Resolution screen_height = 600;
+
+static bool game_over = false;
+static bool pause = false;
+
+static Player player = {0};
+static Ball ball = {0};
+static Brick brick[LINES_OF_BRICKS][BRICKS_PER_LINE] = {0};
+static Vector2 brickSize = {0};
+
+static void InitGame(void);
+static void UpdateGame(void);
+static void DrawGame(void);
+static void UpdateDrawFrame(void);
+static void UnloadGame(void);
 
 int main()
 {
-    InitWindow(screen_width, screen_height, "Conway's Game of Life");
-    init_game();
+    InitWindow(screen_width, screen_height, "arkanoid");
+    InitGame();
     SetTargetFPS(60);
 
     while (!WindowShouldClose())
     {
-        update_draw_frame();
+        UpdateDrawFrame();
     }
 
-    unload_game();
+    UnloadGame();
     CloseWindow();
     return 0;
 }
 
-void init_game(void) {}
+void InitGame(void) {}
 
-void unload_game(void) {}
+void UnloadGame(void) {}
 
-void draw_game(void)
+void DrawGame(void)
 {
     BeginDrawing();
     ClearBackground(RAYWHITE);
@@ -38,10 +73,10 @@ void draw_game(void)
     EndDrawing();
 }
 
-void update_game(void) {}
+void UpdateGame(void) {}
 
-void update_draw_frame(void)
+void UpdateDrawFrame(void)
 {
-    update_game();
-    draw_game();
+    UpdateGame();
+    DrawGame();
 }
