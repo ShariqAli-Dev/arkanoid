@@ -92,7 +92,6 @@ void UpdateGame(void)
 {
     if (!game_over)
     {
-
         if (IsKeyPressed('P'))
         {
             pause = !pause;
@@ -107,6 +106,14 @@ void UpdateGame(void)
                 player.position.x += 5;
             if (player.position.x + player.size.x / 2 >= GetScreenWidth())
                 player.position.x = GetScreenWidth() - player.size.x / 2;
+
+            if (!ball.active)
+            {
+                if (IsKeyPressed(KEY_SPACE))
+                {
+                    ball.speed = (Vector2){0, -5};
+                }
+            }
         }
     }
     else
