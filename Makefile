@@ -1,4 +1,4 @@
 build:
-	@g++ main.cc -lraylib -lGL -lm -lpthread -ldl -lrt -lX11 -o space-invaders
+	@g++ main.cc -lraylib -lGL -lm -lpthread -ldl -lrt -lX11 -o arkanoid
 run: build
-	@./space-invaders
+	@./arkanoid
